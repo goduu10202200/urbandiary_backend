@@ -3,6 +3,7 @@ include 'DBConnection.php';
 $raw_post_data = json_decode(file_get_contents('php://input'), true);
     
 $id =  $raw_post_data['id'];
+$response_data[]="";
     //Select same student.id
     $sql = "SELECT *  FROM diary WHERE username=" .$id.  "";
     $result = $conn->query($sql);
