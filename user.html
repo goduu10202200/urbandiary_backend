@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/axios.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Diary 後台</title>
+</head>
+
+<body>
+    <!-- 上方選項列 -->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navar_bg">
+        <a class="navbar-brand" href="index.html"><img id="logo_pic" src="images/logo_light.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><img id="back_pic" src="assets/fonts/back_icon.png"><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user.html">Diary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="diary_analysis.html">Analysis</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input id="search_input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="search_btn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <!-- 選項列end -->
+
+    <!-- 標題區塊 -->
+    <div class="jumbotron text-center" id="title_bg">
+        <h2>SANDY's Urban Diary</h2>
+        <h3>日記列表</h3>
+    </div>
+    <!-- 標題區塊end -->
+
+    <!-- 使用者日記列表 -->
+    <div class="container-fluid">
+
+        <div class="row" id="diary_list">
+
+            <div class="col-sm-2" v-for="item in list" v-bind:id=item.id v-on:click="jump(item.id)">
+                <div class="diary_pic_div">
+                </div>
+                <h5>{{item.date}}</h5>
+            </div>
+
+            <!-- <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div>
+
+            <div class="col-sm-2">
+                <div class="diary_pic_div">
+                </div>
+                <h5>20181103</h5>
+            </div> -->
+
+        </div>
+
+    </div>
+    <!-- 使用者日記列表end -->
+    <script>
+        var vm;
+        var strUrl = location.search;
+        var getPara, ParaVal;
+        var aryPara = [];
+        window.onload = function () {
+            vm = new Vue({
+                el: '#diary_list',
+                data: {
+                    list: [""],
+                },
+                methods: {
+                    diary_list: function () {
+                        var getjson = JSON.parse(getURL());
+                        //alert(getjson.user);
+                        axios({
+                            method: "post",
+                            url: "./api/ajax_diarylist.php",
+                            data: {
+                                id: getjson.user
+                            }
+                        })
+                            .then(function (response) {
+                                var data = response.data
+                                vm.list = data
+                                console.log(JSON.stringify(response.data))
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    },
+                    jump: function (id) {
+                        window.location.href = "diary_analysis.html?diary=" + id;
+                    }
+                }
+            })
+            vm.diary_list();
+
+        }
+        function getURL() {
+            id_student = "";
+            if (strUrl.indexOf("?") != -1) {
+                var getSearch = strUrl.split("?");
+                getPara = getSearch[1].split("&");
+                for (i = 0; i < getPara.length; i++) {
+                    ParaVal = getPara[i].split("=");
+                    aryPara.push(ParaVal[0]);
+                    aryPara[ParaVal[0]] = ParaVal[1];
+                }
+            }
+            pos = {
+                user: aryPara['user'],
+            };
+            return JSON.stringify(pos);
+        }
+    </script>
+</body>

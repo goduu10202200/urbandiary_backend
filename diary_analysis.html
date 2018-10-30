@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/axios.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Diary 後台</title>
+</head>
+
+<body>
+    <!-- 上方選項列 -->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navar_bg">
+        <a class="navbar-brand" href="index.html"><img id="logo_pic" src="images/logo_light.png"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#"><img id="back_pic" src="assets/fonts/back_icon.png"><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user.html">Diary</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="diary_analysis.html">Analysis</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input id="search_input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button id="search_btn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <!-- 選項列end -->
+
+    <div id="diary">
+        <!-- 標題區塊 -->
+        <div class="jumbotron text-center" id="title_bg">
+            <h2>Sandy's Urban Diary analysis</h2>
+            <p>
+                <h3>{{date}} 日記分析</h3>
+            </p>
+        </div>
+        <!-- 標題區塊end -->
+
+        <!-- 使用者日記分析 -->
+        <div class="container-fluid">
+
+            <div class="row" id="diary_analysis">
+
+                <div class="col-sm-3">
+                    <div id="diary_pic_div">
+                        <img src="images/ugly.jpg">
+                    </div>
+                </div>
+
+                <div class="col-sm-8">
+                    <div class="analysis_content">
+                        <h3>日記內容</h3>
+                        <hr>
+                        <p>
+                            <!-- 每個人都希望有一段美好而又圓滿的戀愛。但是，並不是所有的愛情都可以圓滿地走到終點的。很多的有情人們，
+                            都會因為這樣或者那樣的原因，在中途就放棄了兩個人的感情，選擇離開對方一個人生活。並不是所有的分手都是因為變心了，也不是因為不愛了，只是很多現實中的原因，讓有情人們非常的無奈，從而不得不忍痛分手。
+                            當兩個人無法繼續在一起的時候，就要有人先站出來說分手，當你還深愛著對方，說分手是一件非常困難又殘酷的事情。也許，作為一個女孩子，你無法當面跟你深愛的男友說分手，當你聽到他的聲音時也無法把分手說出口，那麼這個時候要用什麼樣的方法跟你的男朋友說出分手呢？既然無法當面說出口，那麼給男朋友寫一封分手信就是一個非常好的方法。 -->
+                            {{content}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-8">
+                    <div class="analysis_content">
+                        <h3>Jeiba 分詞</h3>
+                        <hr>
+                        <p>
+                            <ul id="keyword">
+                                <li v-for="item in list">{{item}}</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-sm-3"></div>
+
+                <div class="col-sm-8" id="last_board">
+                    <div class="analysis_content">
+                        <h3>配對待辦事項</h3>
+                        <hr>
+                        <p>
+                            <ul id="list">
+                                <li>喝農藥</li>
+                                <li>去加拿大找男朋友</li>
+                                <li>把頭髮剪短</li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- 使用者日記列表end -->
+    </div>
+
+    <script>
+        var vm;
+        var strUrl = location.search;
+        var getPara, ParaVal;
+        var aryPara = [];
+        window.onload = function () {
+            vm = new Vue({
+                el: '#diary',
+                data: {
+                    list: [],
+                    date: "ddddd",
+                    content: "",
+                },
+                methods: {
+                    diary: function () {
+                        var getjson = JSON.parse(getURL());
+                        axios({
+                            method: "post",
+                            url: "./api/ajax_diary.php",
+                            data: {
+                                diary: getjson.diary
+                            }
+                        })
+                            .then(function (response) {
+                                var data = response.data
+                                vm.date = data[0]['date']
+                                vm.content = data[0]['content']
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    },
+                    word: function () {
+                        var getjson = JSON.parse(getURL());
+                        axios({
+                            method: "post",
+                            url: "./api/ajax_word.php",
+                            data: {
+                                diary: getjson.diary
+                            }
+                        })
+                            .then(function (response) {
+                                var data = response.data
+                                var count_split = 0;
+                                var con_Jieba = "";
+                                // vm.list = data;
+
+                                // for (var i = 0; i < data.length; i++) {
+                                //     count_split += (data[i]['word'].split(",")).length;
+                                // }
+
+                                for (var k = 0; k < data.length; k++) {
+                                    for (var i = 0; i < (data[k]['word'].split(",")).length; i++) {
+                                        // con_Jieba += data[k]['word'].split(",")[i] + ","
+                                        vm.list.push(data[k]['word'].split(",")[i])
+                                    }
+                                }
+                                // con_Jieba = con_Jieba.substring(0, con_Jieba.length - 1);
+                                // vm.list.push(con_Jieba)
+                                console.log(vm.list)
+                                //console.log(data[0]['word'])
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    },
+                }
+            })
+            vm.diary();
+            vm.word();
+        }
+        function getURL() {
+            id_student = "";
+            if (strUrl.indexOf("?") != -1) {
+                var getSearch = strUrl.split("?");
+                getPara = getSearch[1].split("&");
+                for (i = 0; i < getPara.length; i++) {
+                    ParaVal = getPara[i].split("=");
+                    aryPara.push(ParaVal[0]);
+                    aryPara[ParaVal[0]] = ParaVal[1];
+                }
+            }
+            pos = {
+                diary: aryPara['diary'],
+            };
+            return JSON.stringify(pos);
+        }
+    </script>
+</body>
