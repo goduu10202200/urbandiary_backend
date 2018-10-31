@@ -159,22 +159,13 @@
                                 var data = response.data
                                 var count_split = 0;
                                 var con_Jieba = "";
-                                // vm.list = data;
-
-                                // for (var i = 0; i < data.length; i++) {
-                                //     count_split += (data[i]['word'].split(",")).length;
-                                // }
 
                                 for (var k = 0; k < data.length; k++) {
                                     for (var i = 0; i < (data[k]['word'].split(",")).length; i++) {
-                                        // con_Jieba += data[k]['word'].split(",")[i] + ","
                                         vm.list.push(data[k]['word'].split(",")[i])
                                     }
                                 }
-                                // con_Jieba = con_Jieba.substring(0, con_Jieba.length - 1);
-                                // vm.list.push(con_Jieba)
-                                console.log(vm.list)
-                                //console.log(data[0]['word'])
+                                //console.log(vm.list)
                             })
                             .catch(function (error) {
                                 console.log(error);
