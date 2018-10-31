@@ -157,11 +157,12 @@ body{
         margin-left: 3rem;
     }
     #diary_analysis > .col-sm-3 #diary_pic_div{
-        overflow: scroll;
+        overflow: hidden;
         height: 20rem;
-        border-color: #c6d8eb;
+        /* border-color: #c6d8eb;
         border-width: 1px;
-        border-style: solid;
+        border-style: solid; */
+        scroll-snap-type: none;
     }
     #diary_analysis > .col-sm-3 > #diary_pic_div img{
         width: 100%;
@@ -194,7 +195,7 @@ body{
         padding: .5rem 1.3rem;
         border-color: #aaa;
         border-radius: 0.4rem;
-        background-color: #bfd5ec;
+        background-color: #6a83b7;
         display: block;
         width: max-content;
         float: left;
@@ -204,7 +205,7 @@ body{
     }
     #keyword li:hover, #list li:hover{
         transition: 0.4s ease-in;
-        background-color: #d7e2ee;
+        background-color: #a3b1d1;
         cursor: pointer;
     }
     #last_board{
