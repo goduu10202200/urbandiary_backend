@@ -90,8 +90,9 @@
                         <hr>
                         <p>
                             <ul id="keyword">
+                                <li>吃拉麵</li>
                                 <template v-for="item in list">
-                                    <li v-if="item=='喜歡' || item=='運動' || item=='讀書' || item=='男孩' " style="background-color:#fb4e4e;">
+                                    <li v-if="item=='喜歡' || item=='運動' || item=='讀書' || item=='男孩' " style="background-color:#6a83b7">
                                         {{item}}
                                     </li>
                                     <li v-else> {{item}}</li>
@@ -110,12 +111,12 @@
                         </span>
                         <hr>
                         <p>
-                            <ul id="list">
-                                <li>圖書館讀書二小時</li>
-                                <li>練投籃球100顆</li>
-                                <li>騎單車一小時</li>
-                                <li>伏地挺身50下</li>
-                                <li>自由式25公尺</li>
+                            <ul id="list" class="list_highlight">
+                                <li><h5>讀書二小時</h5><span>#讀書</span></li>
+                                <li><h5>練投籃球100顆</h5><span>#運動</span></li>
+                                <li><h5>騎單車一小時</h5><span>#運動</span></li>
+                                <li><h5>伏地挺身50下</h5><span>#運動</span></li>
+                                <li><h5>自由式25公尺</h5><span>#運動</span></li>
                             </ul>
                         </p>
                     </div>
