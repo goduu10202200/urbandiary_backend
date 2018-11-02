@@ -111,11 +111,24 @@
                         <hr>
                         <p>
                             <ul id="list" class="list_highlight">
-                                <li><h5>讀書二小時</h5><span>#讀書</span></li>
-                                <li><h5>練投籃球100顆</h5><span>#運動</span></li>
-                                <li><h5>騎單車一小時</h5><span>#運動</span></li>
-                                <li><h5>伏地挺身50下</h5><span>#運動</span></li>
-                                <li><h5>自由式25公尺</h5><span>#運動</span></li>
+                                <li>
+                                    <h5>背20個英文單字</h5><span>#讀書</span>
+                                </li>
+                                <li>
+                                    <h5>讀書二小時</h5><span>#讀書</span>
+                                </li>
+                                <li>
+                                    <h5>練投籃球100顆</h5><span>#運動</span>
+                                </li>
+                                <li>
+                                    <h5>騎單車一小時</h5><span>#運動</span>
+                                </li>
+                                <li>
+                                    <h5>伏地挺身50下</h5><span>#運動</span>
+                                </li>
+                                <li>
+                                    <h5>自由式25公尺</h5><span>#運動</span>
+                                </li>
                             </ul>
                         </p>
                     </div>
@@ -137,6 +150,12 @@
                 el: '#diary',
                 data: {
                     list: [],
+                    list_future: [],
+                    list_sport: [
+                        '棒球',
+                        '籃球',
+                        '羽球',
+                    ],
                     date: "ddddd",
                     content: "",
                 },
@@ -178,6 +197,16 @@
                                         vm.list.push(data[k]['word'].split(",")[i])
                                     }
                                 }
+                                //         sessionStorage.setItem('id', 2);
+                                // alert(sessionStorage.getItem('id'))
+                                // if()
+                                // for (var t = 0; t < vm.list.length; t++) {
+                                //     if (vm.list[t] == "運動") {
+                                //         vm.list_future.push("去打30分鐘的" + vm.list_sport[0]);
+                                //     }
+                                //     //console.log(vm.list[t])
+                                // }
+                                // console.log(vm.list_future[0])
                                 //console.log(vm.list)
                             })
                             .catch(function (error) {
