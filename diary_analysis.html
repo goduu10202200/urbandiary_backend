@@ -62,7 +62,7 @@
 
                 <div class="col-sm-3">
                     <div id="diary_pic_div">
-                        <img src="images/ugly.jpg">
+                        <img src="images/diary.jpg">
                     </div>
                 </div>
 
@@ -71,9 +71,6 @@
                         <h3>日記內容</h3>
                         <hr>
                         <p>
-                            <!-- 每個人都希望有一段美好而又圓滿的戀愛。但是，並不是所有的愛情都可以圓滿地走到終點的。很多的有情人們，
-                            都會因為這樣或者那樣的原因，在中途就放棄了兩個人的感情，選擇離開對方一個人生活。並不是所有的分手都是因為變心了，也不是因為不愛了，只是很多現實中的原因，讓有情人們非常的無奈，從而不得不忍痛分手。
-                            當兩個人無法繼續在一起的時候，就要有人先站出來說分手，當你還深愛著對方，說分手是一件非常困難又殘酷的事情。也許，作為一個女孩子，你無法當面跟你深愛的男友說分手，當你聽到他的聲音時也無法把分手說出口，那麼這個時候要用什麼樣的方法跟你的男朋友說出分手呢？既然無法當面說出口，那麼給男朋友寫一封分手信就是一個非常好的方法。 -->
                             {{content}}
                         </p>
                     </div>
@@ -111,24 +108,31 @@
                         <hr>
                         <p>
                             <ul id="list" class="list_highlight">
-                                <li>
-                                    <h5>背20個英文單字</h5><span>#讀書</span>
-                                </li>
-                                <li>
-                                    <h5>讀書二小時</h5><span>#讀書</span>
-                                </li>
-                                <li>
-                                    <h5>練投籃球100顆</h5><span>#運動</span>
-                                </li>
-                                <li>
-                                    <h5>騎單車一小時</h5><span>#運動</span>
-                                </li>
-                                <li>
-                                    <h5>伏地挺身50下</h5><span>#運動</span>
-                                </li>
-                                <li>
-                                    <h5>自由式25公尺</h5><span>#運動</span>
-                                </li>
+                                <template v-if="index == 1">
+                                    <li>
+                                        <h5>背20個英文單字</h5><span>#讀書</span>
+                                    </li>
+                                    <li>
+                                        <h5>讀書二小時</h5><span>#讀書</span>
+                                    </li>
+                                    <li>
+                                        <h5>練投籃球100顆</h5><span>#運動</span>
+                                    </li>
+                                    <li>
+                                        <h5>騎單車一小時</h5><span>#運動</span>
+                                    </li>
+                                    <li>
+                                        <h5>伏地挺身50下</h5><span>#運動</span>
+                                    </li>
+                                    <li>
+                                        <h5>自由式25公尺</h5><span>#運動</span>
+                                    </li>
+                                </template>
+                                <template v-else>
+                                    <li v-for="item in list_future">
+                                        <h5>{{item.name}}</h5><span>#{{item.type}}</span>
+                                    </li>
+                                </template>
                             </ul>
                         </p>
                     </div>
@@ -150,14 +154,91 @@
                 el: '#diary',
                 data: {
                     list: [],
-                    list_future: [],
-                    list_sport: [
-                        '棒球',
-                        '籃球',
-                        '羽球',
+                    list_future: [
                     ],
-                    date: "ddddd",
+                    list_sport: [
+                        '球類運動',
+                        '有氧運動',
+                        '健康運動',
+                        '競技運動',
+                        '田徑運動',
+                        '休閒運動',
+                        '表演運動',
+                    ],
+                    //桌球
+                    list_tabletennis: [
+                        '正手發球30次',
+                        '反手擊球50次',
+                        '切球練習40次'
+                    ],
+                    //撞球
+                    list_nineball: [
+                        '推竿練習40次',
+                        '拉竿練習50次',
+                        '衝球練習20次'
+                    ],
+                    //排球
+                    list_bolleyball: [
+                        '高手發球30次',
+                        '低手發球20次',
+                        '舉球練習50次'
+                    ],
+                    //網球
+                    list_tennis: [
+                        '對牆擊球30次',
+                        '發球練習50次',
+                        '對打練習30分鐘'
+                    ],
+                    //足球
+                    list_soccer: [
+                        '盤球練習30分鐘',
+                        '射門練習50顆',
+                        '帶球繞場20分鐘'
+                    ],
+                    //羽毛球
+                    list_badminton: [
+                        '正手發球50顆',
+                        '反手發球50顆',
+                        '對打練習30分鐘'
+                    ],
+                    //藍球
+                    list_basketball: [
+                        '練投罰球50顆',
+                        '練投三分球50顆',
+                        '運球練習30分鐘'
+                    ],
+                    //高爾夫球
+                    list_golf: [
+                        '推竿練習20分鐘',
+                        '揮竿練習20分鐘'
+                    ],
+                    //躲避球
+                    list_dodgeball: [
+                        '投準練習30分鐘',
+                        '接球練習30分鐘',
+                        '折返跑3圈'
+                    ],
+                    //橄欖球
+                    list_football: [
+                        '投準練習30分鐘',
+                        '接球練習30分鐘',
+                        '折返跑3圈'
+                    ],
+                    list_study: [
+                        '練習習題30題',
+                        '上機練習20分鐘',
+                        '背英文單字15個'
+                    ],
+                    list_sport_time: [
+                        '45分鐘',
+                        '30分鐘',
+                        '1小時',
+                        '1 小時 45分鐘',
+                        '1小時 30分鐘',
+                    ],
+                    date: "",
                     content: "",
+                    index: ""
                 },
                 methods: {
                     diary: function () {
@@ -180,6 +261,7 @@
                     },
                     word: function () {
                         var getjson = JSON.parse(getURL());
+                        vm.index = getjson.index;
                         axios({
                             method: "post",
                             url: "./api/ajax_word.php",
@@ -197,17 +279,70 @@
                                         vm.list.push(data[k]['word'].split(",")[i])
                                     }
                                 }
-                                //         sessionStorage.setItem('id', 2);
-                                // alert(sessionStorage.getItem('id'))
-                                // if()
-                                // for (var t = 0; t < vm.list.length; t++) {
-                                //     if (vm.list[t] == "運動") {
-                                //         vm.list_future.push("去打30分鐘的" + vm.list_sport[0]);
-                                //     }
-                                //     //console.log(vm.list[t])
-                                // }
-                                // console.log(vm.list_future[0])
-                                //console.log(vm.list)
+                                for (var t = 0; t < vm.list.length; t++) {
+                                    if (vm.list[t] == "運動") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_sport.length - 1) - 2 + 1)) + 2;
+                                        var ran_sport_time = Math.floor(Math.random() * ((vm.list_sport_time.length - 1) - 2 + 1)) + 2
+                                        vm.list_future.push({ name: "練習" + vm.list_sport[0] + vm.list_sport_time[0], type: "運動" });
+                                        vm.list_future.push({
+                                            name: "練習" + vm.list_sport[ran_sport] + vm.list_sport_time[ran_sport_time],
+                                            type: "運動"
+                                        });
+                                    } else if (vm.list[t] == "讀書") {
+                                        vm.list_future.push({ name: vm.list_study[0], type: "讀書" });
+                                        vm.list_future.push({ name: vm.list_study[1], type: "讀書" });
+                                    }
+                                    else if (vm.list[t] == "桌球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_tabletennis.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_tabletennis[0], type: "桌球" });
+                                        vm.list_future.push({ name: vm.list_tabletennis[ran_sport], type: "桌球" });
+                                    }
+                                    else if (vm.list[t] == "撞球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_nineball.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_nineball[0], type: "撞球" });
+                                        vm.list_future.push({ name: vm.list_nineball[ran_sport], type: "撞球" });
+                                    }
+                                    else if (vm.list[t] == "排球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_bolleyball.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_bolleyball[0], type: "排球" });
+                                        vm.list_future.push({ name: vm.list_bolleyball[ran_sport], type: "排球" });
+                                    }
+
+                                    else if (vm.list[t] == "網球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_tennis.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_tennis[0], type: "網球" });
+                                        vm.list_future.push({ name: vm.list_tennis[ran_sport], type: "網球" });
+                                    }
+                                    else if (vm.list[t] == "足球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_soccer.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_soccer[0], type: "足球" });
+                                        vm.list_future.push({ name: vm.list_soccer[ran_sport], type: "足球" });
+                                    }
+                                    else if (vm.list[t] == "羽毛球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_badminton.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_badminton[0], type: "羽毛球" });
+                                        vm.list_future.push({ name: vm.list_badminton[ran_sport], type: "羽毛球" });
+                                    }
+                                    else if (vm.list[t] == "籃球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_basketball.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_basketball[0], type: "籃球" });
+                                        vm.list_future.push({ name: vm.list_basketball[ran_sport], type: "籃球" });
+                                    }
+                                    else if (vm.list[t] == "高爾夫球") {
+                                        vm.list_future.push({ name: vm.list_golf[0], type: "高爾夫球" });
+                                        vm.list_future.push({ name: vm.list_golf[1], type: "高爾夫球" });
+                                    }
+                                    else if (vm.list[t] == "躲避球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_dodgeball.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_dodgeball[0], type: "躲避球" });
+                                        vm.list_future.push({ name: vm.list_dodgeball[ran_sport], type: "躲避球" });
+                                    }
+                                    else if (vm.list[t] == "橄欖球") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_football.length - 1) - 2 + 1)) + 2;
+                                        vm.list_future.push({ name: vm.list_football[0], type: "橄欖球" });
+                                        vm.list_future.push({ name: vm.list_football[ran_sport], type: "橄欖球" });
+                                    }
+                                }
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -231,6 +366,7 @@
             }
             pos = {
                 diary: aryPara['diary'],
+                index: aryPara['index']
             };
             return JSON.stringify(pos);
         }
