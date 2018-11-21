@@ -245,7 +245,7 @@
                         var getjson = JSON.parse(getURL());
                         axios({
                             method: "post",
-                            url: "./api/ajax_diary.php",
+                            url: "./api/mongo_diary_api.php",
                             data: {
                                 diary: getjson.diary
                             }
@@ -254,6 +254,7 @@
                                 var data = response.data
                                 vm.date = data[0]['date']
                                 vm.content = data[0]['content']
+                                console.log(response.data);
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -264,7 +265,7 @@
                         vm.index = getjson.index;
                         axios({
                             method: "post",
-                            url: "./api/ajax_word.php",
+                            url: "./api/mongo_word_api.php",
                             data: {
                                 diary: getjson.diary
                             }

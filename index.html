@@ -1,108 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/vue.js"></script>
+    <script src="assets/js/axios.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Urban Diary 後台</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="bootstrap-4.1.1-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/css/main.css">
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script src="assets/js/main.js"></script>
-  <script src="assets/js/vue.js"></script>
-  <script src="assets/js/axios.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Urban Diary 後台</title>
-</head>
+  <body>
+    <!-- 上方選項列 -->
+    <nav class="navbar navbar-expand-lg navbar-dark" id="navar_bg">
+      <a class="navbar-brand" href="index.html"
+        ><img id="logo_pic" src="images/logo_light.png"
+      /></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-<body>
-  <!-- 上方選項列 -->
-  <nav class="navbar navbar-expand-lg navbar-dark" id="navar_bg">
-    <a class="navbar-brand" href="index.html"><img id="logo_pic" src="images/logo_light.png"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html"
+              >Home <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="user.html">Diary</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="diary_analysis.html">Analysis</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            id="search_input"
+            class="form-control mr-sm-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button
+            id="search_btn"
+            class="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+    <!-- 選項列end -->
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="user.html">Diary</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="diary_analysis.html">Analysis</a>
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0">
-        <input id="search_input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button id="search_btn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+    <!-- 標題區塊 -->
+    <div class="jumbotron text-center" id="title_bg">
+      <h1>USER LIST</h1>
+      <h3>使用者列表</h3>
     </div>
-  </nav>
-  <!-- 選項列end -->
+    <!-- 標題區塊end -->
 
-  <!-- 標題區塊 -->
-  <div class="jumbotron text-center" id="title_bg">
-    <h1>USER LIST</h1>
-    <h3>使用者列表</h3>
-  </div>
-  <!-- 標題區塊end -->
-
-  <!-- 使用者列表 -->
-  <div class="container-fluid">
-    <div class="row" id="user_list">
-      <div class="col-sm-3" v-for="item in list" v-bind:id=item.id v-on:click="jump(item.id)">
-        <h2><a>{{item.name}}</a></h2>
-        <h6>{{item.username}}</h6>
-        <h5>
-          <span>
-            <a>ID:</a> <a>{{item.id}}</a>
-          </span>
-          <span>
-            <a>Diary(s):</a> <a>{{item.diary_count}}</a>
-          </span>
-        </h5>
+    <!-- 使用者列表 -->
+    <div class="container-fluid">
+      <div class="row" id="user_list">
+        <div
+          class="col-sm-3"
+          v-for="(item,index) in list"
+          v-bind:id="item.id"
+          v-on:click="jump(item.username)"
+        >
+          <h2>
+            <a>{{ item.name }}</a>
+          </h2>
+          <h6>{{ item.username }}</h6>
+          <h5>
+            <span>
+              <a>ID:</a> <a>{{ index + 1 }}</a>
+            </span>
+            <span>
+              <a>Diary(s):</a> <a>{{ item.diary_count }}</a>
+            </span>
+          </h5>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- 使用者列表end -->
+    <!-- 使用者列表end -->
 
-  <script>
-    var vm;
-    window.onload = function () {
-      vm = new Vue({
-        el: '#user_list',
-        data: {
-          list: [""],
-        },
-        methods: {
-          member: function () {
-            axios({
-              method: "post",
-              url: "./api/ajax_member.php",
-              data: {
-              }
-            })
-              .then(function (response) {
-                var data = response.data
-                vm.list = data
-                //console.log(JSON.stringify(response.data[0]['diary_count']))
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
+    <script>
+      var vm;
+      window.onload = function() {
+        vm = new Vue({
+          el: "#user_list",
+          data: {
+            list: [""]
           },
-          jump: function (id) {
-            window.location.href = "user.html?user=" + id;
+          methods: {
+            member: function() {
+              axios({
+                method: "post",
+                url: "./api/mongo_member_api.php",
+                data: {}
+              })
+                .then(function(response) {
+                  var data = response.data;
+                  vm.list = data;
+                  console.log(JSON.stringify(response.data[0]["diary_count"]));
+                })
+                .catch(function(error) {
+                  console.log(error);
+                });
+            },
+            jump: function(id) {
+              window.location.href = "user.html?user=" + id;
+            }
           }
-        }
-      })
-      vm.member();
-
-    }
-
-  </script>
-</body>
-
+        });
+        vm.member();
+      };
+    </script>
+  </body>
 </html>
