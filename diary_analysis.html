@@ -62,7 +62,8 @@
 
                 <div class="col-sm-3">
                     <div id="diary_pic_div">
-                        <img src="images/ugly.jpg">
+                        <img v-bind:src="'../assets/uploadfile/images/'+ filename">
+                        <!-- v-bind:src="'/media/avatars/' + joke.avatar" -->
                     </div>
                 </div>
 
@@ -92,6 +93,13 @@
                                         {{item}}
                                     </li>
                                     <li v-else> {{item}}</li>
+                                </template>
+                            </ul>
+                            <ul id="keyword">
+                                <template v-for="item in list_image">
+                                    <li  style="background-color:#59B4C8">
+                                        {{item}}
+                                    </li>
                                 </template>
                             </ul>
                         </p>
@@ -154,6 +162,7 @@
                 el: '#diary',
                 data: {
                     list: [],
+                    list_image:[],
                     list_future: [
                     ],
                     list_sport: [
@@ -237,8 +246,9 @@
                         '1小時 30分鐘',
                     ],
                     date: "",
+                    index: "",
                     content: "",
-                    index: ""
+                    filename:""
                 },
                 methods: {
                     diary: function () {
@@ -254,7 +264,37 @@
                                 var data = response.data
                                 vm.date = data[0]['date']
                                 vm.content = data[0]['content']
-                                console.log(response.data);
+                                //console.log(response.data);
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                            });
+                    },
+                    diary_image: function () {
+                        var getjson = JSON.parse(getURL());
+                        axios({
+                            method: "post",
+                            url: "./api/mongo_image_api.php",
+                            data: {
+                                diary: getjson.diary
+                            }
+                        })
+                            .then(function (response) {
+                                var data = response.data;
+                                var array_words_image = data[0]['resault']['result']['tags'];
+                                // var resault_json = JSON.parse([0]['resault'])
+                                // console.log("filename: " + data[0]['filename']);
+                                vm.filename = data[0]['filename']
+                                // list_image
+                                
+                                for (var k = 0; k < array_words_image.length; k++) {
+                                    // for (var i = 0; i < (data[k]['word'].split(",")).length; i++) {
+                                        vm.list_image.push(array_words_image[k]['tag']['zh_cht'])
+                                    // }
+                                }
+                                // console.log(data[0]['resault']['result']['tags'][0]['tag']['zh_cht']);
+                                // console.log(data[0]['resault']['result']['tags']);
+                                console.log(vm.list_image)
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -353,6 +393,7 @@
             })
             vm.diary();
             vm.word();
+            vm.diary_image();
         }
         function getURL() {
             id_student = "";

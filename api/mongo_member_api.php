@@ -22,10 +22,10 @@ foreach ($cursor as $key =>  $document) {
     $decode_data2 = iterator_to_array($rows);
 
     $response_data[] = array(
-        "id"                  =>   $decode_data['_id'],
-        "username"      =>   $decode_data['username'],
-        "name"             =>   $decode_data['name'],
-        "diary_count"	=>  count($decode_data2),
+        "id"                =>   $decode_data['_id'],
+        "username"          =>   $decode_data['username'],
+        "name"              =>   $decode_data['name'],
+        "diary_count"	    =>  count($decode_data2),
     );
 }
 echo json_encode($response_data);

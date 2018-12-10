@@ -12,7 +12,7 @@ $id_diary =  $raw_post_data['diary'];
 $manager = new MongoDB\Driver\Manager("mongodb://".$dbhost);
 
 // 查詢條件
-$filter= array('diary_id' => $id_diary);
+$filter= array('diary_id' => new \MongoDB\BSON\ObjectID($id_diary));
 
 // 查詢資料
 $query = new MongoDB\Driver\Query($filter);
@@ -23,9 +23,9 @@ foreach ($cursor as $key =>  $document) {
     $decode_data = json_decode(json_encode($document), true);
 
     $response_data[] = array(
-            "id"                  =>   $decode_data['_id'],
+            "id"                =>   $decode_data['_id'],
             "word"              =>   $decode_data['word'],
-            "sentence"         =>   $decode_data['sentence'],
+            "sentence"          =>   $decode_data['sentence'],
     );
 }
 
