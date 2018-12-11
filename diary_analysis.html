@@ -137,16 +137,16 @@
                                     </li>
 
                                     <li>
-                                        <h5>練習PHP 2小時</h5><span>#相機</span>
+                                        <h5>練習PHP 2小時</h5><span>#照片</span>
                                     </li>
                                     <li>
-                                        <h5>練習Python 1小時</h5><span>#相機</span>
+                                        <h5>練習Python 1小時</h5><span>#照片</span>
                                     </li>
                                     <li>
-                                        <h5>練習ASP.NET 1小時30分</h5><span>#相機</span>
+                                        <h5>練習ASP.NET 1小時30分</h5><span>#照片</span>
                                     </li>
                                 </template>
-                                <template >
+                                <template v-else>
                                     <li v-for="item in list_future">
                                         <h5>{{item.name}}</h5><span>#{{item.type}}</span>
                                     </li>
@@ -349,10 +349,10 @@
                                     if (vm.list_image[g] == "工程師") {
                                         var ran_sport = Math.floor(Math.random() * ((vm.list_code.length - 1) - 2 + 1)) + 2;
                                         var ran_sport_time = Math.floor(Math.random() * ((vm.list_sport_time.length - 1) - 2 + 1)) + 2
-                                        vm.list_future.push({ name: vm.list_code[0] + " " + vm.list_sport_time[ran_sport_time], type: "相機" });
+                                        vm.list_future.push({ name: vm.list_code[0] + " " + vm.list_sport_time[ran_sport_time], type: "照片" });
                                         vm.list_future.push({
                                             name: vm.list_code[ran_sport] + " " + vm.list_sport_time[ran_sport_time],
-                                            type: "相機"
+                                            type: "照片"
                                         });
                                     }
                                 }
