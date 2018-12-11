@@ -116,7 +116,36 @@
                         <hr>
                         <p>
                             <ul id="list" class="list_highlight">
-                               
+                                <template v-if="index == 1">
+                                    <li>
+                                        <h5>練投籃球100顆</h5><span>#運動</span>
+                                    </li>
+                                    <li>
+                                        <h5>騎單車1小時</h5><span>#運動</span>
+                                    </li>
+                                    <li>
+                                        <h5>伏地挺身50下</h5><span>#運動</span>
+                                    </li>
+                                    <li>
+                                        <h5>自由式25公尺</h5><span>#運動</span>
+                                    </li>
+                                    <li>
+                                        <h5>吃嘿．傑克</h5><span>#吃拉麵</span>
+                                    </li>
+                                    <li>
+                                        <h5>吃九湯屋日本拉麵</h5><span>#吃拉麵</span>
+                                    </li>
+
+                                    <li>
+                                        <h5>練習PHP 2小時</h5><span>#相機</span>
+                                    </li>
+                                    <li>
+                                        <h5>練習Python 1小時</h5><span>#相機</span>
+                                    </li>
+                                    <li>
+                                        <h5>練習ASP.NET 1小時30分</h5><span>#相機</span>
+                                    </li>
+                                </template>
                                 <template >
                                     <li v-for="item in list_future">
                                         <h5>{{item.name}}</h5><span>#{{item.type}}</span>
@@ -286,8 +315,9 @@
                                         check_item++;
                                     }
                                 }
-                                if(check_item == 0){
-                                    vm.list_image.push("工程師")
+                                if(check_item == 0 && getjson.index == 1){
+                                    vm.list_image.push("工程師");
+                                    vm.list_image.push("程式")
                                 }
                                 //console.log(vm.list_image)
                             })
@@ -319,9 +349,9 @@
                                     if (vm.list_image[g] == "工程師") {
                                         var ran_sport = Math.floor(Math.random() * ((vm.list_code.length - 1) - 2 + 1)) + 2;
                                         var ran_sport_time = Math.floor(Math.random() * ((vm.list_sport_time.length - 1) - 2 + 1)) + 2
-                                        vm.list_future.push({ name: vm.list_code[0] + vm.list_sport_time[ran_sport_time], type: "相機" });
+                                        vm.list_future.push({ name: vm.list_code[0] + " " + vm.list_sport_time[ran_sport_time], type: "相機" });
                                         vm.list_future.push({
-                                            name: vm.list_code[ran_sport] +vm.list_sport_time[ran_sport_time],
+                                            name: vm.list_code[ran_sport] + " " + vm.list_sport_time[ran_sport_time],
                                             type: "相機"
                                         });
                                     }
@@ -410,8 +440,8 @@
                 }
             })
             vm.diary();
-            vm.word();
             vm.diary_image();
+            vm.word();
         }
         function getURL() {
             id_student = "";
