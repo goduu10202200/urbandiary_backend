@@ -90,7 +90,13 @@
               v-on:click="jump(item.id,index)"
               v-if="item !='' && item.id!= '10444224' "
             >
-              <div class="diary_pic_div"><img src="images/ugly.jpg" /></div>
+              <div class="diary_pic_div">
+                <img v-if="item.imagefilename == null " src="images/ugly.jpg" />
+                <img
+                  v-else
+                  v-bind:src="'../assets/uploadfile/images/'+ item.imagefilename"
+                />
+              </div>
               <h5>{{ item.date }}</h5>
             </div>
           </template>
@@ -108,7 +114,8 @@
           el: "#data_diary",
           data: {
             list: [],
-            username: ""
+            username: "",
+            filename: []
           },
           methods: {
             diary_list: function() {
@@ -128,7 +135,6 @@
                   if (data != "") {
                     vm.list = data;
                     vm.username = vm.list[1]["username"];
-                    //console.log(vm.list[1]['id'])
                   }
                 })
                 .catch(function(error) {
