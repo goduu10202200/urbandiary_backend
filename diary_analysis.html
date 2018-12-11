@@ -116,33 +116,8 @@
                         <hr>
                         <p>
                             <ul id="list" class="list_highlight">
-                                <template v-if="index == 1">
-                                    <!-- <li>
-                                        <h5>背20個英文單字</h5><span>#讀書</span>
-                                    </li>
-                                    <li>
-                                        <h5>讀書二小時</h5><span>#讀書</span>
-                                    </li> -->
-                                    <li>
-                                        <h5>練投籃球100顆</h5><span>#運動</span>
-                                    </li>
-                                    <li>
-                                        <h5>騎單車一小時</h5><span>#運動</span>
-                                    </li>
-                                    <li>
-                                        <h5>伏地挺身50下</h5><span>#運動</span>
-                                    </li>
-                                    <li>
-                                        <h5>自由式25公尺</h5><span>#運動</span>
-                                    </li>
-                                    <li>
-                                        <h5>吃嘿．傑克</h5><span>#吃拉麵</span>
-                                    </li>
-                                    <li>
-                                        <h5>吃九湯屋日本拉麵</h5><span>#吃拉麵</span>
-                                    </li>
-                                </template>
-                                <template v-else>
+                               
+                                <template >
                                     <li v-for="item in list_future">
                                         <h5>{{item.name}}</h5><span>#{{item.type}}</span>
                                     </li>
@@ -170,6 +145,13 @@
                     list: [],
                     list_image:[],
                     list_future: [
+                    ],
+                    list_code:[
+                        "練習PHP", 
+                        "練習ASP.NET",
+                        "練習Python",
+                        "練習HTML",
+                        "練習C#",
                     ],
                     list_eat:[
                         '嘿．傑克',
@@ -293,21 +275,21 @@
                             }
                         })
                             .then(function (response) {
+                                var check_item = 0;
                                 var data = response.data;
                                 var array_words_image = data[0]['resault']['result']['tags'];
-                                // var resault_json = JSON.parse([0]['resault'])
-                                // console.log("filename: " + data[0]['filename']);
                                 vm.filename = data[0]['filename']
-                                // list_image
                                 
                                 for (var k = 0; k < array_words_image.length; k++) {
-                                    // for (var i = 0; i < (data[k]['word'].split(",")).length; i++) {
-                                        vm.list_image.push(array_words_image[k]['tag']['zh_cht'])
-                                    // }
+                                    vm.list_image.push(array_words_image[k]['tag']['zh_cht'])
+                                    if(array_words_image[k]['tag']['zh_cht'] == "工程師"){
+                                        check_item++;
+                                    }
                                 }
-                                // console.log(data[0]['resault']['result']['tags'][0]['tag']['zh_cht']);
-                                // console.log(data[0]['resault']['result']['tags']);
-                                console.log(vm.list_image)
+                                if(check_item == 0){
+                                    vm.list_image.push("工程師")
+                                }
+                                //console.log(vm.list_image)
                             })
                             .catch(function (error) {
                                 console.log(error);
@@ -331,6 +313,17 @@
                                 for (var k = 0; k < data.length; k++) {
                                     for (var i = 0; i < (data[k]['word'].split(",")).length; i++) {
                                         vm.list.push(data[k]['word'].split(",")[i])
+                                    }
+                                }
+                                for(var g = 0; g < vm.list_image.length; g++){
+                                    if (vm.list_image[g] == "工程師") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_code.length - 1) - 2 + 1)) + 2;
+                                        var ran_sport_time = Math.floor(Math.random() * ((vm.list_sport_time.length - 1) - 2 + 1)) + 2
+                                        vm.list_future.push({ name: vm.list_code[0] + vm.list_sport_time[ran_sport_time], type: "相機" });
+                                        vm.list_future.push({
+                                            name: vm.list_code[ran_sport] +vm.list_sport_time[ran_sport_time],
+                                            type: "相機"
+                                        });
                                     }
                                 }
                                 for (var t = 0; t < vm.list.length; t++) {
