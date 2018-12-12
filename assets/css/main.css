@@ -253,4 +253,16 @@ body {
 #last_board {
   margin-bottom: 2rem;
 }
+.photo_list{
+  background-color: #59B4C8 !important;
+}
+.photo_list:hover{
+  transition: 0.4s ease-in !important;
+  background-color: rgb(143, 186, 196)  !important;
+  cursor: pointer !important;
+}
+.photo_list>span{
+  background-color: rgb(71, 139, 155) !important;
+  border-color: rgb(52, 105, 117)  !important;
+}
 /* 使用者日記分析css end */
