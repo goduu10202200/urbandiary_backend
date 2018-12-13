@@ -146,19 +146,21 @@
                                     <li>
                                         <h5>吃九湯屋日本拉麵</h5><span>#吃拉麵</span>
                                     </li>
-
-                                    <li>
+                                    <li class="photo_list">
                                         <h5>練習PHP 2小時</h5><span>#照片</span>
                                     </li>
-                                    <li>
+                                    <li class="photo_list">
                                         <h5>練習Python 1小時</h5><span>#照片</span>
                                     </li>
-                                    <li>
+                                    <li class="photo_list">
                                         <h5>練習ASP.NET 1小時30分</h5><span>#照片</span>
                                     </li>
                                 </template>
-                                <template v-else>
-                                    <li v-for="item in list_future">
+                                <template  v-else v-for="item in list_future" >
+                                    <li  v-if="item.type != '照片'"  >
+                                        <h5>{{item.name}}</h5><span>#{{item.type}}</span>
+                                    </li>
+                                    <li v-else class='photo_list' >
                                         <h5>{{item.name}}</h5><span>#{{item.type}}</span>
                                     </li>
                                 </template>
@@ -356,17 +358,7 @@
                                         vm.list.push(data[k]['word'].split(",")[i])
                                     }
                                 }
-                                for(var g = 0; g < vm.list_image.length; g++){
-                                    if (vm.list_image[g] == "工程師") {
-                                        var ran_sport = Math.floor(Math.random() * ((vm.list_code.length - 1) - 2 + 1)) + 2;
-                                        var ran_sport_time = Math.floor(Math.random() * ((vm.list_sport_time.length - 1) - 2 + 1)) + 2
-                                        vm.list_future.push({ name: vm.list_code[0] + " " + vm.list_sport_time[ran_sport_time], type: "照片" });
-                                        vm.list_future.push({
-                                            name: vm.list_code[ran_sport] + " " + vm.list_sport_time[ran_sport_time],
-                                            type: "照片"
-                                        });
-                                    }
-                                }
+                                // 分析文字
                                 for (var t = 0; t < vm.list.length; t++) {
                                     if (vm.list[t] == "拉麵") {
                                         var ran_sport = Math.floor(Math.random() * ((vm.list_eat.length - 1) - 2 + 1)) + 2;
@@ -441,6 +433,18 @@
                                         var ran_sport = Math.floor(Math.random() * ((vm.list_football.length - 1) - 2 + 1)) + 2;
                                         vm.list_future.push({ name: vm.list_football[0], type: "橄欖球" });
                                         vm.list_future.push({ name: vm.list_football[ran_sport], type: "橄欖球" });
+                                    }
+                                }
+                                // 分析照片
+                                for(var g = 0; g < vm.list_image.length; g++){
+                                    if (vm.list_image[g] == "工程師") {
+                                        var ran_sport = Math.floor(Math.random() * ((vm.list_code.length - 1) - 2 + 1)) + 2;
+                                        var ran_sport_time = Math.floor(Math.random() * ((vm.list_sport_time.length - 1) - 2 + 1)) + 2
+                                        vm.list_future.push({ name: vm.list_code[0] + " " + vm.list_sport_time[ran_sport_time], type: "照片" });
+                                        vm.list_future.push({
+                                            name: vm.list_code[ran_sport] + " " + vm.list_sport_time[ran_sport_time],
+                                            type: "照片"
+                                        });
                                     }
                                 }
                             })

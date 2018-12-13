@@ -38,9 +38,10 @@ if ($count_diary != 0) {
         foreach ($rows as $key =>  $rows_document) {
             $decode_data2 = json_decode(json_encode($rows_document), true);
             $response_data[] = array(
-                "id"                  =>   $decode_data['_id'],
-                "date"              =>   $decode_data['date'],
-                "username"      =>   $decode_data2['name'],
+                "id"                =>  $decode_data['_id'],
+                "date"              =>  $decode_data['date'],
+                "username"          =>  $decode_data2['name'],
+                "imagefilename"     =>  $decode_data['imagefilename'],
             );
         }
     }
