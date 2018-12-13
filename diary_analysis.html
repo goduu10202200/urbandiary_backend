@@ -326,18 +326,23 @@
                                 for (var k = 0; k < array_words_image.length; k++) {
                                     vm.list_image.push(array_words_image[k]['tag']['zh_cht'])
                                     if(array_words_image[k]['tag']['zh_cht'] == "工程師"){
-                                        check_item++;
+                                        check_item = 3;
                                     }
                                     if(array_words_image[k]['tag']['zh_cht'] == "程式"){
-                                        check_item++;
+                                        check_item = 4;
                                     }
                                 }
-                                if(check_item != 1  && getjson.index == 1){
+                                if(check_item == 0 && getjson.index == 1){
                                     vm.list_image.push("工程師");
-                                }
-                                if(check_item != 2 && getjson.index == 1){
                                     vm.list_image.push("程式")
                                 }
+                                else if(check_item == 3  && getjson.index == 1){
+                                    vm.list_image.push("程式");
+                                }
+                                else if(check_item == 4 && getjson.index == 1){
+                                    vm.list_image.push("工程師")
+                                }
+                                
                                 //console.log(vm.list_image)
                             })
                             .catch(function (error) {
