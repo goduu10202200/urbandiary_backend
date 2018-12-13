@@ -328,9 +328,14 @@
                                     if(array_words_image[k]['tag']['zh_cht'] == "工程師"){
                                         check_item++;
                                     }
+                                    if(array_words_image[k]['tag']['zh_cht'] == "程式"){
+                                        check_item++;
+                                    }
                                 }
-                                if(check_item == 0 && getjson.index == 1){
+                                if(check_item != 1  && getjson.index == 1){
                                     vm.list_image.push("工程師");
+                                }
+                                if(check_item != 2 && getjson.index == 1){
                                     vm.list_image.push("程式")
                                 }
                                 //console.log(vm.list_image)
